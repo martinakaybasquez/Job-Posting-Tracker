@@ -1,5 +1,10 @@
 package co.grandcircus.jobpostingtracker;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,10 +27,26 @@ public class JobPostingController {
    }
 
    @GetMapping("/Jobs") // returns all job postings
-   public List<JobPosting> GetAllJobPostings() {
-       return jobRepo.findAll();
+    // @RequestParam(required = false) makes optional query params
+    // Optional<datatype> allows whatever datatype to return null
+   public List<JobPosting> GetAllJobPostings(
+        @RequestParam(required = false) Optional<String> title, 
+        @RequestParam(required = false) Optional<Boolean> applied,
+        @RequestParam(required = false) Optional<LocalDate> appliedSince
+        ) {
+            if (title != null) { return jobRepo.findByTitle(title); }
+            if (applied.isPresent()) { return jobRepo.findByApplied(applied); }   
+            
+            // SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
+            // Date date1 = simpleDateFormat.parse("2022-12-06");
+            // Date date2 = simpleDateFormat.parse("2022-12-06");
+            // System.out.println(date2.compareTo(date1));
 
-       // should initally return an empty [] because there is currently no data
+            // SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-mm-dd");
+            // Date 
+
+            // if (appliedSince.)
+    return jobRepo.findAll();
    }
 
    @PostMapping("/Jobs")  
