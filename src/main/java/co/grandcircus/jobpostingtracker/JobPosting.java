@@ -4,8 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity // tells java api (thing that connects it to the db that this is a model)
+@Table(name = "Unemployed")
 public class JobPosting {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY) // tells id to auto increment using identity
